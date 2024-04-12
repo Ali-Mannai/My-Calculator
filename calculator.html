@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Calculator</title>
+  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv7I8gw1xjDTBNRIgVmzACuoSq-8VWeJj3lDu26TTOrD7KxF2ZEc10leAlETl37IUYmx0&usqp=CAU" type="image/x-icon">
+  <style>
+    body{
+      background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfMw4VwU_Y7ecwTwORIyqtzkfxR60DjFcFGQ&usqp=CAU");
+    }
+    .calculator {
+      width: 60%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    input {
+      width: 93%;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      padding: 2%;
+      color: rgb(212, 0, 255);
+      font-size: large;
+      
+    }
+
+    .calculator button {
+      width: 31.5%;
+      padding: 7px;
+      margin: 3px;
+      font-size: 18px;
+      color: rgb(212, 0, 255);
+      background-color: rgb(225, 223, 220);
+      border-radius: 6px;
+    }
+
+    .operator button {
+      width: 15.6%;
+      padding: 5px;
+      margin: 3px;
+      font-size: 18px;
+      color: red;
+      background-color: rgb(0, 255, 234);
+      border-radius: 10px;
+    }
+
+    .calculator .operator {
+      display: flex;
+    }
+    button:hover{
+        background-color: rgb(122, 220, 127);
+    }
+    .operbutton:hover{
+        background-color: rgb(13, 189, 242);
+    }
+    .clear:hover {
+    background-color: rgb(255, 0, 0);
+  }
+  .equal{
+      color: rgb(8, 188, 32);
+    }
+    .equal:hover {
+      background-color: chartreuse;
+    }
+    
+  h1{
+    width: 93%;
+    padding: 2%;
+    border:  solid fuchsia;
+    border-radius: 20px;
+    margin-bottom: 15%;
+    background-color: beige;
+    font-size: 370%;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(188, 29, 205);
+    text-align: center;
+  }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h1>Welcome to Ali's calculator !</h1>
+    <input placeholder= "Donner votre operation" type="text" id="result" readonly>
+    <button onclick="appendNumber(1)">1</button>
+    <button onclick="appendNumber(2)">2</button>
+    <button onclick="appendNumber(3)">3</button>
+    <button onclick="appendNumber(4)">4</button>
+    <button onclick="appendNumber(5)">5</button>
+    <button onclick="appendNumber(6)">6</button>
+    <button onclick="appendNumber(7)">7</button>
+    <button onclick="appendNumber(8)">8</button>
+    <button onclick="appendNumber(9)">9</button>
+    <button onclick="appendNumber(0)">0</button>
+    <button class="clear" onclick="clearResult()"><strong>C</strong></button>
+    <button class="equal"  onclick="calculateResult()"><strong>=</strong></button>
+    <div class="operator">
+      <button class="operbutton" onclick="appendOperator('+')"><strong>+</strong></button>
+      <button class="operbutton" onclick="appendOperator('-')"><strong>-</strong></button>
+      <button class="operbutton" onclick="appendOperator('*')"><strong>*</strong></button>
+      <button class="operbutton" onclick="appendOperator('/')"><strong>/</strong></button>
+      <button class="operbutton" onclick="appendOperator('^')"><strong>^</strong></button>
+      <button class="operbutton" onclick="factorielle()" ><strong>!</strong></button>
+    </div>
+  </div>
+
+  <script>
+    let currentResult = 0;
+    let currentOperator = '';
+    let isOperatorClicked = false;
+
+    function appendNumber(number) {
+      if (isOperatorClicked) {
+        document.getElementById('result').value = '';
+        isOperatorClicked = false;
+      }
+      document.getElementById('result').value += number;
+    }
+
+    function appendOperator(operator) {
+      currentResult = parseFloat(document.getElementById('result').value);
+      currentOperator = operator;
+      isOperatorClicked = true;
+      document.getElementById('result').value = operator;
+    }
+
+    function calculateResult() {
+      const number = parseFloat(document.getElementById('result').value);
+      let result;
+
+      switch (currentOperator) {
+        case '+':
+          result = currentResult + number;
+          break;
+        case '-':
+          result = currentResult - number;
+          break;
+        case '*':
+          result = currentResult * number;
+          break;
+        case '/':
+          result
+          = currentResult / number;
+          break;
+        case '^':
+          let res = 1;
+          for (let i = 0; i < number; i++) {
+            res *= currentResult;
+          }
+          result = res;
+          break;
+        default:
+          result = number;
+      }
+
+      document.getElementById('result').value = result;
+    }
+
+    function clearResult() {
+      document.getElementById('result').value = '';
+      currentResult = 0;
+      currentOperator = '';
+      isOperatorClicked = false;
+    }
+    function factorielle() {
+      const number = parseFloat(document.getElementById('result').value);
+      let result=number;
+        for (let i=1; i < number ; i++) {
+          result = result * i;
+        }
+      document.getElementById('result').value = result;
+    }
+  </script>
+</body>
+</html>
